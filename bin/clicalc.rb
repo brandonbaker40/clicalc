@@ -3,8 +3,6 @@
 require 'fileutils'
 
 expression = nil
-script_start = nil
-return_to_start = script_start
 
 script_start = while expression != "EXIT"
     puts "Do some math! Type EXIT to terminate calculator."
@@ -14,8 +12,8 @@ script_start = while expression != "EXIT"
     # If the expression contains anything other than numbers or valid operators
     # Alert the user
     if expression.match(/[^ 0-9*\/+-]/)
-      puts "Stripping invalid characters....."
-      sleep(1)
+      puts "Invalid characters detected"
+      break
     end
 
     # Strip invalid characters
@@ -24,25 +22,17 @@ script_start = while expression != "EXIT"
     # Expression must contain at least one valid operator
     if expression.match?(/[*\/+-]/) == false
       puts "Expression must contain a valid operator: * / + -"
-      return_to_start
+      break
     end
 
     # If the expression starts with an operator other than the minus sign, return to start
-    if expression.start_with? /[*\/+]/
-      puts "Expressions can't start with operators!"
-      return_to_start
+    if expression.start_with? /[*\/+-]/
+      puts "Don't start expressions with operators!"
+      break
     end
 
-    # If the expression ends with an operator, return to start
-    # TBD
-
-
-    # Create one space between integers and valid operators except subtraction
+    # Create one space between integers and valid operators
     expression = expression.gsub(/[*\/+-]/) {|char| " #{char} "}
-
-    # Create a leading space between minus signs
-    # expression = expression.gsub(/[-]/) {|char| " #{char}"}
-
     # If the expression contains "*"
     while expression.match(/[*]/)
       a = expression.split
@@ -77,7 +67,7 @@ script_start = while expression != "EXIT"
       i = a.index("/")
 
       # divide the two numbers on either side of the index
-      quotient = a[i - 1].to_i / a[i + 1].to_i
+      quotient = a[i - 1].to_f / a[i + 1].to_f
 
       # insert the product into the expression array
       a.insert(i, quotient.to_s)
@@ -94,6 +84,8 @@ script_start = while expression != "EXIT"
       # form a new expression string
       expression = a.join(" ")
     end
+
+
 
     # If the expression contains "+"
     while expression.match(/[+]/)
@@ -123,7 +115,7 @@ script_start = while expression != "EXIT"
 
     # If the expression contains "-"
     while expression.match(/[-]/)
-      (expression.start_with?("-") && (expression.count('-') == 1)) ? break : nil
+      (expression.start_with?("-") && (expression.split.count == 1)) ? break : nil
 
       a = expression.split
 
@@ -150,6 +142,4 @@ script_start = while expression != "EXIT"
     end
 
     puts expression
-    puts "Class: #{expression.class}"
-
   end
