@@ -85,8 +85,6 @@ script_start = while expression != "EXIT"
       expression = a.join(" ")
     end
 
-
-
     # If the expression contains "+"
     while expression.match(/[+]/)
       a = expression.split
