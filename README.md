@@ -14,6 +14,7 @@ git clone git@github.com:brandonbaker40/clicalc.git
 
 ```bash
 cd clicalc
+chmod a+x ./bin/clicalc.rb
 ```
 
 ### Ruby
