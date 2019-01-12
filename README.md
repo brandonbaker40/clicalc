@@ -1,6 +1,8 @@
 # Clicalc
 
-A simple command line calculator. Multiplication, division, addition, and subtraction supported.
+A command line calculator that doesn't use the easiest methods to evaluation mathematical expressions. Because why wouldn't you?
+
+Multiplication, division, addition, and subtraction supported.
 
 ## Usage
 
